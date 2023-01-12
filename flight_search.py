@@ -1,15 +1,14 @@
 import json
+import os
 from datetime import datetime, timedelta
 
 import requests
+from dotenv import find_dotenv, load_dotenv
 
 from flight_data import FlightData
-import os
-from dotenv import find_dotenv, load_dotenv
 
 dotenv_path = find_dotenv()
 load_dotenv(dotenv_path)
-
 
 TEQUILA_BASE_URL = "https://api.tequila.kiwi.com/"
 TEQUILA_SEARCH_QUERY_URL = "locations/query"
@@ -91,7 +90,8 @@ class FlightSearch:
 
             self.flight_data = FlightData(
                 price=flight_search_data["data"][0]["price"],
-                origin_city=flight_search_data["data"][0]["route"][0]["cityFrom"],
+                origin_city=flight_search_data["data"][0]["route"][0]
+                ["cityFrom"],
                 origin_airport=flight_search_data["data"][0]["route"][0]
                 ["flyFrom"],
                 destination_city=flight_search_data["data"][0]["route"][0]
